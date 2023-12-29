@@ -40,25 +40,25 @@ const Button = ({
   switch (size) {
     case Sizes.XS:
       sizeClasses = `px-2.5 py-1.5 text-xs`;
-      iconClasses = "ml-0.5 mr-2 h-4 w-4";
+      iconClasses = "ml-0.5 h-4 w-4";
       break;
     case Sizes.SM:
       sizeClasses = `px-3 py-2 text-sm`;
-      iconClasses = "ml-0.5 mr-2 h-4 w-4";
+      iconClasses = "ml-0.5 h-4 w-4";
       break;
     case Sizes.LG:
       sizeClasses = `px-4 py-2 text-base`;
-      iconClasses = "-ml-1 mr-3 h-5 w-5";
+      iconClasses = "-ml-0.5 h-5 w-5";
       break;
     case Sizes.XL:
       sizeClasses = `px-6 py-3 text-base`;
-      iconClasses = "-ml-1 mr-3 h-5 w-5";
+      iconClasses = "-ml-0.5 h-5 w-5";
       break;
 
     case Sizes.MD:
     default:
       sizeClasses = `px-4 py-2 text-sm`;
-      iconClasses = "-ml-1 mr-2 h-5 w-5";
+      iconClasses = "-ml-0.5 h-5 w-5";
       break;
   }
 
@@ -90,11 +90,12 @@ const Button = ({
   }[color];
 
   let classes = `
-  ${block ? "block w-full text-center" : ""}
-  ${Icon ? "inline-flex items-center gap-x-1.5" : ""}
-  ${sizeClasses} border border-transparent font-semibold
+  ${block ? "block w-full" : ""}
+  ${Icon ? "inline-flex items-center justify-center" : ""}
+  ${Icon && (size == Sizes.LG || size == Sizes.XL) ? "gap-x-2" : "gap-x-1.5"}
+  ${sizeClasses} font-semibold
   ${pill ? "rounded-full" : rounded ? "rounded-md" : ""}
-  shadow-sm cursor-pointer ${style} transition-colors duration-200`;
+  text-center shadow-sm cursor-pointer ${style} transition-colors duration-200`;
 
   const content = (
     <>

@@ -36,10 +36,10 @@ const Header = ({ logo, title, navigation, constrained }: HeaderProps) => {
   const whatsapp = contacts.whatsapp;
 
   return (
-    <header className="bg-gray-900">
+    <header className="absolute inset-x-0 top-0 z-50">
       <nav>
         {/* Top navigation */}
-        <div className="bg-black">
+        {/* <div className="bg-black">
           <div className="mx-auto flex h-10 items-center justify-between px-4 sm:px-6 lg:px-8">
             <Dropdown
               button={
@@ -74,7 +74,7 @@ const Header = ({ logo, title, navigation, constrained }: HeaderProps) => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Secondary navigation */}
         <div
           className={`flex ${
@@ -92,9 +92,6 @@ const Header = ({ logo, title, navigation, constrained }: HeaderProps) => {
                 height={200}
                 alt=""
               />
-              {/* <span className="text-lg font-bold leading-6 text-white">
-              {title}
-            </span> */}
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -119,13 +116,16 @@ const Header = ({ logo, title, navigation, constrained }: HeaderProps) => {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Button
-              text={t("chat with us")}
-              link={whatsapp.href}
-              Icon={whatsapp.icon}
-              color={ButtonColors.SUCCESS}
+            <a
+              href={whatsapp.href}
               target="_blank"
-            />
+              className="flex items-center text-base font-medium text-white hover:text-gray-100 space-x-2"
+            >
+              <span>
+                <whatsapp.icon className="w-5 h-5 text-green-500" />
+              </span>
+              <span>{whatsapp.description}</span>
+            </a>
           </div>
         </div>
       </nav>

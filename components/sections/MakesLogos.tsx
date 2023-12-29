@@ -25,7 +25,7 @@ const MakesLogos = () => {
           <p className="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/5">
             <span className="hidden md:inline">
               {locale === "fr"
-                ? "Explorez le Maroc en toute confiance avec des véhicules de marques renommées"
+                ? "Explorez le Maroc en toute confiance avec des véhicules de marques renommées."
                 : "Explore Morocco with confidence in vehicles from renowned brands."}
             </span>
             <a href="#" className="font-semibold text-primary-600">

@@ -1,9 +1,4 @@
-import {
-  PhoneIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-} from "@heroicons/react/24/outline";
-import { useTranslations } from "next-intl";
+import { PhoneIcon, EnvelopeIcon, MapPinIcon } from "@heroicons/react/20/solid";
 import { ElementType } from "react";
 import { BsWhatsapp as WhatsappIcon } from "react-icons/bs";
 
@@ -13,18 +8,18 @@ export const app: any = {
   shortName: "setlyluxurycar",
   title: "Setly Luxury Car",
   description: {
-    en: "Rent a Car with Ease. Welcome to Setly Luxury Car, your premier car rental agency in Morocco. Explore our diverse fleet, flexible options, and exceptional service. Book now and embark on unforgettable journeys!",
-    fr: "Louez une voiture en toute simplicité. Bienvenue chez Setly Luxury Car, votre agence de location de voitures de premier choix au Maroc. Découvrez notre flotte variée, nos options flexibles et notre service exceptionnel. Réservez dès maintenant et embarquez pour des voyages inoubliables !",
+    en: "We know the difference is in the details and that's why our car rental services, in the tourism and business industry, stand out for their quality and good taste, to offer you an unique experience.",
+    fr: "Nous savons que la différence se trouve dans les détails, c'est pourquoi nos services de location de voiture, dans l'industrie du tourisme et des affaires, se distinguent par leur qualité et leur bon goût, afin de vous offrir une expérience unique.",
   },
   tagline: {
-    en: "Unlock Adventure in Morocco with Setly Luxury Car Agency",
-    fr: "Débloquez l'aventure au Maroc avec l'agence Setly Luxury Car",
+    en: "Rent your luxury car",
+    fr: "Louez votre voiture de luxe",
   },
   url: "https://setlyluxurycar.com",
   baseUrl: "/",
   favicon: "/logo.svg",
-  logo: "/logo-inverse.svg",
-  logoInverse: "/logo.svg",
+  logo: "/logo.svg",
+  logoInverse: "/logo-inverse.svg",
 };
 
 // SEO
@@ -59,7 +54,7 @@ export const navigation: any = [
 export const phone = "+212 661 80 74 70";
 export const phone2 = "+212 661 80 74 70";
 
-interface ContactItem {
+export interface ContactItem {
   title: string;
   description: string;
   href: string;
@@ -86,7 +81,7 @@ export const contacts: ContactsType = {
   whatsapp: {
     title: "whatsapp",
     description: phone,
-    href: `https://api.whatsapp.com/send?phone=+212661807470`,
+    href: `https://api.whatsapp.com/send?phone=212661807470`,
     icon: WhatsappIcon,
   },
   email: {

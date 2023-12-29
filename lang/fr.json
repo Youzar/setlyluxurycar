@@ -19,11 +19,13 @@
   "drop-off date": "Date de retour",
   "new booking": "Nouvelle réservation",
   "book": "Réserver",
+  "book now": "Réservez maintenant",
   "booking": "Réservation",
   "create": "Créer",
   "close": "Fermer",
   "cancel": "Annuler",
   "nothing found": "Rien n'a été trouvé",
+  "send via": "Envoyer via",
   "send via whatsapp": "Envoyer via Whatsapp",
   "send via email": "Envoyer par e-mail",
   "required_error": "Veuillez remplir tous les champs obligatoires !",
@@ -35,8 +37,11 @@
   "about": "À propos",
   "about us": "À propos de nous",
   "call now": "Appeler maintenant",
+  "contact us": "Contact us",
   "search": "Rechercher",
   "contact": "Contact",
   "chat with us": "Discutez avec nous",
-  "show more": "Afficher plus"
+  "show more": "Afficher plus",
+  "why choose us?": "Pourquoi nous choisir ?",
+  "start from": "À partir de"
 }

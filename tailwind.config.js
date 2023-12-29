@@ -13,10 +13,10 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
-        primary: colors.green,
-        secondary: colors.blue,
+        primary: colors.yellow,
+        secondary: colors.gray,
         neutral: colors.gray,
-        accent: colors.orange,
+        accent: colors.green,
         success: colors.green,
         warning: colors.yellow,
         info: colors.blue,

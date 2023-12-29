@@ -1,28 +1,23 @@
 import { services } from "@/constants";
 import { useLocale, useTranslations } from "next-intl";
+import Heading from "./Heading";
 
 const Services = () => {
   const t = useTranslations();
   const locale = useLocale();
 
   return (
-    <div className="bg-white py-24 sm:py-32">
+    <div className="bg-neutral-100 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-primary-600">
-            {t("services")}
-          </h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            {locale === "fr"
-              ? "L'Excellence rencontre la Commodité"
-              : "Excellence Meets Convenience"}
-          </p>
-          <p className="mt-6 text-lg leading-8 text-neutral-600">
-            {locale === "fr"
-              ? "Chez 3 Étoiles, nous nous efforçons de dépasser vos attentes avec notre gamme de services haut de gamme. Voici ce qui nous distingue:"
-              : "At 3 Étoiles, we strive to exceed your expectations with our range of premium services. Here's what sets us apart:"}
-          </p>
-        </div>
+        <Heading
+          centered
+          eyebrow={t("why choose us?")}
+          title={
+            locale === "fr"
+              ? "Location de voiture rapide et facile"
+              : "Quick and easy car rental"
+          }
+        />
 
         <div className="mt-16 grid grid-cols-1 gap-y-16 gap-x-6 sm:mt-20 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
           {services.map((service: any) => (

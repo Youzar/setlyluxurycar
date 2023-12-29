@@ -8,6 +8,7 @@ import { makes, places } from "@/constants";
 import { ButtonColors, ButtonTypes, Sizes } from "@/common.types";
 import { IoMdPin as PinIcon } from "react-icons/io";
 import { IoCarSport as CarIcon, IoCog as CogIcon } from "react-icons/io5";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const makesList = makes.map((make) => ({
   name: make.name,
@@ -19,8 +20,8 @@ const makesList = makes.map((make) => ({
 }));
 
 interface BookingProps {
-  whatsapp: string;
-  email: string;
+  whatsapp: any;
+  email: any;
 }
 
 const Booking = ({ whatsapp, email }: BookingProps) => {
@@ -121,8 +122,7 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
           `*${t("pick-up date")}*: ${formatedPickUpDate}\n` +
           `*${t("drop-off date")}*: ${formatedDropOffDate}`;
         const encodedMessage = encodeURIComponent(messageBody);
-        const whatsappWithoutSpaces = whatsapp.split(" ").join("");
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappWithoutSpaces}&text=${encodedMessage}`;
+        const whatsappUrl = `${whatsapp.href}&text=${encodedMessage}`;
         window.open(whatsappUrl, "_blank");
       } else if (via === "email") {
         const subject = `New Booking Request - ${customerName}`;
@@ -141,9 +141,9 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
           ${t("drop-off date")}: ${formatedDropOffDate}
         `;
         const encodedBody = encodeURIComponent(body);
-        const mailToUrl = `mailto:${email}?subject=${encodeURIComponent(
-          subject
-        )}&body=${encodedBody}`;
+        const mailToUrl = `mailto:${
+          email.description
+        }?subject=${encodeURIComponent(subject)}&body=${encodedBody}`;
         window.open(mailToUrl, "_blank");
       }
     }
@@ -164,10 +164,10 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
 
   return (
     <>
-      <div className="relative app-container">
+      <div className="relative">
         <div className="mx-auto max-w-md sm:max-w-3xl lg:max-w-full">
           <form onSubmit={handleSearch}>
-            <div className="bg-white p-4 rounded-lg items-center shadow-2xl shadow-neutral-400/20 lg:flex lg:items-end lg:p-8">
+            <div className="bg-white p-4 items-center shadow-2xl shadow-neutral-400/20 lg:flex lg:items-end lg:p-8">
               <div className="lg:grow">
                 <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-2">
                   <div className="col-span-2">
@@ -190,6 +190,7 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
                       handleChange={(e) =>
                         setPickUpDate(new Date(e.target.value))
                       }
+                      rounded={false}
                     />
                   </div>
                   <div>
@@ -201,12 +202,19 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
                       handleChange={(e) =>
                         setDropOffDate(new Date(e.target.value))
                       }
+                      rounded={false}
                     />
                   </div>
                 </div>
               </div>
               <div className="mt-6 lg:ml-4 lg:mt-0">
-                <Button type={ButtonTypes.SUBMIT} block>
+                <Button
+                  type={ButtonTypes.SUBMIT}
+                  color={ButtonColors.SECONDARY}
+                  block
+                  rounded={false}
+                  Icon={MagnifyingGlassIcon}
+                >
                   {t("search")}
                 </Button>
               </div>
@@ -260,6 +268,7 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
             label={t("full name")}
             value={customerName}
             handleChange={(e) => setCustomerName(e.target.value)}
+            rounded={false}
           />
           <Input
             type="tel"
@@ -267,6 +276,7 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
             label={t("phone")}
             value={custonerPhone}
             handleChange={(e) => setCustomerPhone(e.target.value)}
+            rounded={false}
           />
           <Input
             type="email"
@@ -274,28 +284,49 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
             label={t("email")}
             value={customerEmail}
             handleChange={(e) => setCustomerEmail(e.target.value)}
+            rounded={false}
           />
 
           <hr />
 
           <div className="space-y-3">
-            <Button
-              text={t("send via whatsapp")}
-              handleClick={() => handleSend("whatsapp")}
-              color={ButtonColors.SUCCESS}
-              block
-            />
-            <Button
-              text={t("send via email")}
-              handleClick={() => handleSend("email")}
-              color={ButtonColors.DANGER}
-              block
-            />
+            <div className="relative">
+              <div
+                className="absolute inset-0 flex items-center"
+                aria-hidden="true"
+              >
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-white px-2 text-sm text-gray-500">
+                  {t("send via")}
+                </span>
+              </div>
+            </div>
+            <div className="flex justify-between space-x-2">
+              <Button
+                text="Whatsapp"
+                handleClick={() => handleSend("whatsapp")}
+                color={ButtonColors.SUCCESS}
+                block
+                Icon={whatsapp.icon}
+                rounded={false}
+              />
+              <Button
+                text="Email"
+                handleClick={() => handleSend("email")}
+                color={ButtonColors.DARK}
+                block
+                Icon={email.icon}
+                rounded={false}
+              />
+            </div>
             <Button
               text={t("cancel")}
               handleClick={() => handleCancel()}
               color={ButtonColors.DEFAULT}
               block
+              rounded={false}
             />
           </div>
         </div>

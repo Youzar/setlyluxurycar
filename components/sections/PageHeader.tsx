@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface PageHeaderProps {
   title: string;
   description?: string;
@@ -7,13 +9,15 @@ interface PageHeaderProps {
 const PageHeader = ({
   title,
   description,
-  imageUrl = "http://setlyluxurycar.com/static/media/car-fleet.c05de716b4caf1e4778a.webp",
+  imageUrl = "/images/car-fleet.webp",
 }: PageHeaderProps) => {
   return (
-    <div className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
-      <img
+    <div className="relative isolate overflow-hidden bg-black px-6 py-24 sm:py-32 lg:px-8">
+      <Image
         src={imageUrl}
         alt=""
+        width={1920}
+        height={600}
         className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
       />
       <div

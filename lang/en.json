@@ -19,11 +19,13 @@
   "drop-off date": "Drop-off date",
   "new booking": "New Booking",
   "book": "Book",
+  "book now": "Book now",
   "booking": "Booking",
   "create": "Create",
   "close": "Close",
   "cancel": "Cancel",
   "nothing found": "Nothing found",
+  "send via": "Send via",
   "send via whatsapp": "Send via Whatsapp",
   "send via email": "Send via Email",
   "required_error": "Please fill out all the required input fields!",
@@ -35,8 +37,11 @@
   "about": "About",
   "about us": "About us",
   "call now": "Call now",
+  "contact us": "Contact us",
   "search": "Search",
   "contact": "Contact",
   "chat with us": "Chat with us",
-  "show more": "Show more"
+  "show more": "Show more",
+  "why choose us?": "Why choose us?",
+  "start from": "Start from"
 }

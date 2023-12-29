@@ -9,6 +9,7 @@ interface InputProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   disabled?: boolean;
+  rounded?: boolean;
 }
 
 const Input = ({
@@ -20,6 +21,7 @@ const Input = ({
   handleChange,
   placeholder,
   disabled = false,
+  rounded = true,
 }: InputProps) => {
   return (
     <div>
@@ -32,7 +34,7 @@ const Input = ({
         onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
-        className={`${label && "mt-1"} app-input`}
+        className={`${label && "mt-1"} ${rounded && "rounded-md"} app-input`}
       />
     </div>
   );

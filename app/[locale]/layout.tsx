@@ -50,9 +50,10 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header
-            logo={app.logoInverse}
+            logo={app.logo}
             title={app.title}
             navigation={translatedNavigation}
+            constrained
           />
 
           {children}

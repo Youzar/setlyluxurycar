@@ -56,6 +56,7 @@ export interface Car {
   transmission: Transmissions;
   fuelType: FuelTypes;
   fuelConsumption: string;
+  price: number | "";
   isActive: boolean;
   showInMain: boolean;
   image: string;
