@@ -5,6 +5,7 @@ import { ElementType, ReactNode } from "react";
 interface ButtonProps {
   text?: string;
   link?: string;
+  linkType?: "link" | "anchor";
   type?: ButtonTypes;
   color?: ButtonColors;
   size?: Sizes;
@@ -21,6 +22,7 @@ interface ButtonProps {
 const Button = ({
   text,
   link,
+  linkType = "link",
   type = ButtonTypes.BUTTON,
   color = ButtonColors.PRIMARY,
   size,
@@ -106,10 +108,14 @@ const Button = ({
 
   return (
     <>
-      {link ? (
-        <Link href={link} className={classes} onClick={handleClick} {...props}>
+      {link && linkType === "link" ? (
+        <Link href={link} className={classes} {...props}>
           {content}
         </Link>
+      ) : link && linkType === "anchor" ? (
+        <a href={link} className={classes} {...props}>
+          {content}
+        </a>
       ) : (
         <button
           type={type}

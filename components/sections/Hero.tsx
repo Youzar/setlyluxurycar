@@ -20,18 +20,18 @@ const Hero = () => {
     "/hero-img-3.png",
     "/hero-img-4.png",
   ];
-  // const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // FIXME:
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     // Move to the next image
-  //     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-  //   }, 2000);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  //   // Cleanup function to clear the interval when the component unmounts
-  //   return () => clearInterval(intervalId);
-  // }, [currentImageIndex, images.length]);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // Move to the next image
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 2000);
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, [currentImageIndex, images.length]);
 
   return (
     <>
@@ -76,6 +76,7 @@ const Hero = () => {
                         Icon={contacts.phone.icon}
                         link={contacts.phone.href}
                         rounded={false}
+                        linkType="anchor"
                       >
                         {t("call now")}
                       </Button>
@@ -85,7 +86,7 @@ const Hero = () => {
                 <div className="mt-24 mb-16 lg:mb-0 lg:w-1/2">
                   <div className="max-w-lg mx-auto">
                     <Image
-                      src={images[0]}
+                      src={images[currentImageIndex]}
                       alt=""
                       className="object-contain w-[48rem] max-w-nones sm:w-[57rem] md:-ml-4 lg:-ml-0"
                       width={1024}
