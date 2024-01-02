@@ -1,42 +1,35 @@
-import Label from "./Label";
-
-interface InputProps {
-  name: string;
-  id?: string;
-  label?: string;
-  type?: "text" | "email" | "password" | "number" | "tel" | "date";
-  value?: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: string;
-  disabled?: boolean;
-  rounded?: boolean;
-}
+import { InputProps } from "@/common.types";
+import { defaultConfig } from ".";
+import { classNames } from "@/utils";
 
 const Input = ({
   name,
   id,
-  label,
   type = "text",
   value,
+  className = "",
   handleChange,
   placeholder,
   disabled = false,
-  rounded = true,
+  rounded = defaultConfig.roundedButon,
+  ...props
 }: InputProps) => {
   return (
-    <div>
-      {label && <Label text={label} htmlFor={name ?? id} />}
-      <input
-        type={type}
-        name={name}
-        id={id}
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        disabled={disabled}
-        className={`${label && "mt-1"} ${rounded && "rounded-md"} app-input`}
-      />
-    </div>
+    <input
+      type={type}
+      name={name}
+      id={id ?? name}
+      value={value}
+      onChange={handleChange}
+      placeholder={placeholder}
+      disabled={disabled}
+      className={classNames(
+        rounded ? "rounded-md" : "",
+        "app-input",
+        className
+      )}
+      {...props}
+    />
   );
 };
 

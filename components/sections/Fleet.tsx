@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import Car from "./partials/CarCard";
 import { Button } from "../elements";
-import { ButtonColors } from "@/common.types";
+import { ButtonColor } from "@/common.types";
 import Heading from "./Heading";
 
 const Fleet = ({ showAll = false }) => {
@@ -65,7 +65,7 @@ const Fleet = ({ showAll = false }) => {
               {!showAll && (
                 <Button
                   text={t("show more")}
-                  color={ButtonColors.SECONDARY}
+                  color={ButtonColor.SECONDARY}
                   link="/fleet"
                   rounded={false}
                 />

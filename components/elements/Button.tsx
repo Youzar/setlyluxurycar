@@ -1,66 +1,76 @@
-import { ButtonColors, Sizes, ButtonTypes } from "@/common.types";
+import { ButtonColor, Size, ButtonType, Alignment } from "@/common.types";
 import Link from "next/link";
 import { ElementType, ReactNode } from "react";
+import { defaultConfig } from ".";
+import { classNames } from "@/utils";
 
 interface ButtonProps {
   text?: string;
   link?: string;
   linkType?: "link" | "anchor";
-  type?: ButtonTypes;
-  color?: ButtonColors;
-  size?: Sizes;
+  type?: ButtonType;
+  color?: ButtonColor;
+  size?: Size;
   disabled?: boolean;
   rounded?: boolean;
   pill?: boolean;
   block?: boolean;
   outline?: boolean;
-  Icon?: ElementType;
+  LeadingIcon?: ElementType;
+  leadingIconClassName?: string;
+  TrailingIcon?: ElementType;
+  trailingIconClassName?: string;
   handleClick?: () => void;
   children?: ReactNode;
+  inGroup?: Alignment;
 }
 
 const Button = ({
   text,
   link,
   linkType = "link",
-  type = ButtonTypes.BUTTON,
-  color = ButtonColors.PRIMARY,
+  type = ButtonType.BUTTON,
+  color = ButtonColor.PRIMARY,
   size,
   disabled = false,
-  rounded = true,
+  rounded = defaultConfig.roundedButon,
   pill = false,
   block = false,
   outline = false,
-  Icon,
+  LeadingIcon,
+  leadingIconClassName,
+  TrailingIcon,
+  trailingIconClassName,
   handleClick,
   children,
+  inGroup,
   ...props
 }: ButtonProps) => {
   let sizeClasses = "";
   let iconClasses = "";
 
   switch (size) {
-    case Sizes.XS:
+    case Size.XS:
       sizeClasses = `px-2.5 py-1.5 text-xs`;
-      iconClasses = "ml-0.5 h-4 w-4";
+      iconClasses = "h-4 w-4";
       break;
-    case Sizes.SM:
+    case Size.SM:
       sizeClasses = `px-3 py-2 text-sm`;
-      iconClasses = "ml-0.5 h-4 w-4";
+      iconClasses = "h-4 w-4";
       break;
-    case Sizes.LG:
+    case Size.LG:
       sizeClasses = `px-4 py-2 text-base`;
-      iconClasses = "-ml-0.5 h-5 w-5";
+      iconClasses = "h-5 w-5";
       break;
-    case Sizes.XL:
+    case Size.XL:
       sizeClasses = `px-6 py-3 text-base`;
-      iconClasses = "-ml-0.5 h-5 w-5";
+      iconClasses = "h-5 w-5";
       break;
 
-    case Sizes.MD:
+    case Size.MD:
     default:
       sizeClasses = `px-4 py-2 text-sm`;
-      iconClasses = "-ml-0.5 h-5 w-5";
+      iconClasses = "h-5 w-5";
       break;
   }
 
@@ -91,18 +101,58 @@ const Button = ({
       : "ring-1 ring-inset ring-gray-300 text-gray-900 bg-white hover:bg-gray-100 focus:bg-gray-200",
   }[color];
 
-  let classes = `
-  ${block ? "block w-full" : ""}
-  ${Icon ? "inline-flex items-center justify-center" : ""}
-  ${Icon && (size == Sizes.LG || size == Sizes.XL) ? "gap-x-2" : "gap-x-1.5"}
-  ${sizeClasses} font-semibold
-  ${pill ? "rounded-full" : rounded ? "rounded-md" : ""}
-  text-center shadow-sm cursor-pointer ${style} transition-colors duration-200`;
+  let classes = classNames(
+    block ? "block w-full" : "",
+    LeadingIcon || TrailingIcon
+      ? "inline-flex items-center justify-center"
+      : "",
+    (LeadingIcon || TrailingIcon) && (size == Size.LG || size == Size.XL)
+      ? "gap-x-2"
+      : "gap-x-1.5",
+    sizeClasses,
+    "font-semibold",
+    pill
+      ? "rounded-full"
+      : rounded
+      ? inGroup
+        ? inGroup === Alignment.START
+          ? "rounded-l-md"
+          : "rounded-r-md"
+        : "rounded-md"
+      : "",
+    inGroup === Alignment.START
+      ? "-mr-px"
+      : inGroup === Alignment.END
+      ? "-l-px"
+      : "",
+    "text-center shadow-sm cursor-pointer",
+    style,
+    "transition-colors duration-200"
+  );
 
   const content = (
     <>
-      {Icon && <Icon className={iconClasses} />}
+      {LeadingIcon && (
+        <LeadingIcon
+          className={classNames(
+            `-ml-0.5 ${iconClasses}`,
+            leadingIconClassName ?? ""
+          )}
+          aria-hidden="true"
+        />
+      )}
+
       {children ?? text}
+
+      {TrailingIcon && (
+        <TrailingIcon
+          className={classNames(
+            `-ml-0.5 ${iconClasses}`,
+            trailingIconClassName ?? ""
+          )}
+          aria-hidden="true"
+        />
+      )}
     </>
   );
 

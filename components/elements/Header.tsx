@@ -14,7 +14,7 @@ import Link from "next/link";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { contacts } from "@/constants";
 import { Button } from ".";
-import { ButtonColors } from "@/common.types";
+import { ButtonColor } from "@/common.types";
 
 interface NavigationTypes {
   name: string;

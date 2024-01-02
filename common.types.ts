@@ -1,6 +1,6 @@
-import { ElementType } from "react";
+import { ElementType, ReactNode } from "react";
 
-export enum Sizes {
+export enum Size {
   XS = "xs",
   SM = "sm",
   MD = "md",
@@ -8,13 +8,19 @@ export enum Sizes {
   XL = "xl",
 }
 
-export enum ButtonTypes {
+export enum Alignment {
+  START = "start",
+  CENTER = "center",
+  END = "end",
+}
+
+export enum ButtonType {
   BUTTON = "button",
   SUBMIT = "submit",
   RESET = "reset",
 }
 
-export enum ButtonColors {
+export enum ButtonColor {
   PRIMARY = "primary",
   SECONDARY = "secondary",
   SUCCESS = "success",
@@ -25,7 +31,7 @@ export enum ButtonColors {
   DEFAULT = "default",
 }
 
-export enum CarTypes {
+export enum CarType {
   SEDAN = "Sedan",
   SUV = "SUV",
   VAN = "Van/Minivan",
@@ -33,31 +39,86 @@ export enum CarTypes {
   COUPE = "Coupe",
 }
 
-export enum Transmissions {
+export enum Transmission {
   MANUAL = "Manual",
   AUTOMATIC = "Automatic",
 }
 
-export enum FuelTypes {
+export enum FuelType {
   DIESEL = "Diesel",
   GASOLINE = "Gasoline",
 }
 
-export interface Place {
-  name: string;
-  icon: ElementType;
-}
-export interface Car {
+export interface CarProps {
   model: string;
-  type: CarTypes;
+  type: CarType;
   year?: number;
   doors: number;
   seats: number;
-  transmission: Transmissions;
-  fuelType: FuelTypes;
+  transmission: Transmission;
+  fuelType: FuelType;
   fuelConsumption: string;
   price: number | "";
   isActive: boolean;
   showInMain: boolean;
   image: string;
+}
+
+export interface InputProps {
+  name: string;
+  id?: string;
+  type?: "text" | "email" | "password" | "number" | "tel" | "date";
+  value?: any;
+  className?: string;
+  handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  rounded?: boolean;
+}
+
+export interface InputGroupProps extends InputProps {
+  label?: string;
+  children?: ReactNode;
+  addOn?: string;
+  inlineLeading?: string;
+  inlineTrailing?: string;
+  LeadingIcon?: ElementType;
+  TrailingIcon?: ElementType;
+  LeadingButton?: ElementType;
+  TrailingButton?: ElementType;
+}
+
+// Select Menu item for (Listbox | Combobox)
+export interface SelectMenuItem {
+  name: string;
+  icon?: ElementType;
+  image?: string;
+  leading?: any;
+}
+
+interface BaseSelectMenuProps {
+  items: SelectMenuItem[];
+  Icon?: ElementType;
+  imageSize?: Size;
+  allowCustomValue?: boolean; // used with Combobox
+  secondaryText?: string; // used with Listbox
+}
+
+// Listbox Or Combobox
+export interface SelectMenuProps extends BaseSelectMenuProps {
+  id: string;
+  by?: string;
+  selected: SelectMenuItem;
+  setSelected: SelectMenuItem;
+  rounded?: boolean;
+  inGroup?: Alignment;
+  displayName?: boolean; // used with Listbox
+  displaySecondaryText?: boolean; // used with Listbox
+}
+
+export interface SelectMenuOptionsProps extends BaseSelectMenuProps {
+  menuType: "Listbox" | "Combobox";
+  open?: boolean; // used with Listbox *required
+  query?: string; // used with Combobox *required
+  afterLeave?: () => void; // used with Combobox *required
 }

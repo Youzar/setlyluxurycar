@@ -4,7 +4,7 @@ import { Button } from "../elements";
 import Image from "next/image";
 import { useApp } from "@/hooks";
 import { useTranslations } from "next-intl";
-import { ButtonColors, Sizes } from "@/common.types";
+import { ButtonColor, Size } from "@/common.types";
 import { IoCarSport as CarIcon } from "react-icons/io5";
 import { contacts } from "@/constants";
 import { useEffect, useState } from "react";
@@ -23,15 +23,15 @@ const Hero = () => {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      // Move to the next image
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     // Move to the next image
+  //     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  //   }, 2000);
 
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-  }, [currentImageIndex, images.length]);
+  //   // Cleanup function to clear the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+  // }, [currentImageIndex, images.length]);
 
   return (
     <>
@@ -62,18 +62,18 @@ const Hero = () => {
                     </p>
                     <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                       <Button
-                        color={ButtonColors.DARK}
-                        size={Sizes.LG}
-                        Icon={CarIcon}
+                        color={ButtonColor.DARK}
+                        size={Size.LG}
+                        LeadingIcon={CarIcon}
                         link="/fleet"
                         rounded={false}
                       >
                         {t("our fleet")}
                       </Button>
                       <Button
-                        color={ButtonColors.PRIMARY}
-                        size={Sizes.LG}
-                        Icon={contacts.phone.icon}
+                        color={ButtonColor.PRIMARY}
+                        size={Size.LG}
+                        LeadingIcon={contacts.phone.icon}
                         link={contacts.phone.href}
                         rounded={false}
                         linkType="anchor"
@@ -86,7 +86,7 @@ const Hero = () => {
                 <div className="mt-24 mb-16 lg:mb-0 lg:w-1/2">
                   <div className="max-w-lg mx-auto">
                     <Image
-                      src={images[currentImageIndex]}
+                      src={images[0]}
                       alt=""
                       className="object-contain w-[48rem] max-w-nones sm:w-[57rem] md:-ml-4 lg:-ml-0"
                       width={1024}

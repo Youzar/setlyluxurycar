@@ -1,11 +1,10 @@
-import { Place } from "@/common.types";
 import {
   IoMdTrain as TrainIcon,
   IoMdAirplane as AirplaneIcon,
   IoMdPin as PinIcon,
 } from "react-icons/io";
 
-export const places: Place[] = [
+export const places: any = [
   {
     name: "Agadir-Al Massira Airport",
     icon: AirplaneIcon,

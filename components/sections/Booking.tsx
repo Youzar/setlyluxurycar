@@ -2,13 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Button, Combobox, Input } from "../elements";
+import { Button, ComboBox, InputGroup, PhoneInput } from "../elements";
 import Modal from "../elements/Modal";
 import { makes, places } from "@/constants";
-import { ButtonColors, ButtonTypes, Sizes } from "@/common.types";
+import { ButtonColor, ButtonType, Size } from "@/common.types";
 import { IoMdPin as PinIcon } from "react-icons/io";
 import { IoCarSport as CarIcon, IoCog as CogIcon } from "react-icons/io5";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import {
+  EnvelopeIcon,
+  MagnifyingGlassIcon,
+  UserIcon,
+} from "@heroicons/react/20/solid";
 
 const makesList = makes.map((make) => ({
   name: make.name,
@@ -44,7 +48,8 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
   const [make, setMake] = useState(initialMake);
   const [model, setModel] = useState(initialModel);
   const [customerName, setCustomerName] = useState(initialCustomerName);
-  const [custonerPhone, setCustomerPhone] = useState(initialCustomerPhone);
+  const [customerPhone, setCustomerPhone] = useState(initialCustomerPhone);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [customerEmail, setCustomerEmail] = useState(initialCustomerEmail);
 
   useEffect(() => {
@@ -77,7 +82,7 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
       isObjectEmpty(make) ||
       !model ||
       !customerName ||
-      !custonerPhone ||
+      !customerPhone ||
       !customerEmail
     ) {
       requiredError();
@@ -114,7 +119,9 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
         const messageBody =
           `${BookingMessage}\n` +
           `*${t("name")}*: ${customerName}\n` +
-          `*${t("phone")}*: ${custonerPhone}\n` +
+          `*${t("phone")}*: ${
+            selectedCountry?.callingCode
+          } ${customerPhone}\n` +
           `*${t("email")}*: ${customerEmail}\n` +
           `------\n` +
           `*${t("car")}: ${car}*\n` +
@@ -132,7 +139,7 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
           Booking Details:
 
           ${t("name")}: ${customerName}
-          ${t("phone")}: ${custonerPhone}
+          ${t("phone")}: ${selectedCountry?.callingCode}  ${customerPhone}
           ${t("email")}: ${customerEmail}
           -----------------------
           ${t("car")}: ${car}
@@ -171,18 +178,20 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
               <div className="lg:grow">
                 <div className="space-y-6 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-2">
                   <div className="col-span-2">
-                    <Combobox
-                      label={t("pick-up")}
-                      items={places}
-                      selected={pickUp}
-                      setSelected={setPickUp}
-                      customValue
-                      Icon={PinIcon}
-                    />
+                    <InputGroup name="pickUp" label={t("pick-up")}>
+                      <ComboBox
+                        id="pickUp"
+                        items={places}
+                        selected={pickUp}
+                        setSelected={setPickUp}
+                        allowCustomValue
+                        Icon={PinIcon}
+                      />
+                    </InputGroup>
                   </div>
 
                   <div className="w-full">
-                    <Input
+                    <InputGroup
                       type="date"
                       name="pickUpDate"
                       label={t("pick-up date")}
@@ -190,11 +199,10 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
                       handleChange={(e) =>
                         setPickUpDate(new Date(e.target.value))
                       }
-                      rounded={false}
                     />
                   </div>
                   <div>
-                    <Input
+                    <InputGroup
                       type="date"
                       name="dropOffDate"
                       label={t("drop-off date")}
@@ -202,18 +210,16 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
                       handleChange={(e) =>
                         setDropOffDate(new Date(e.target.value))
                       }
-                      rounded={false}
                     />
                   </div>
                 </div>
               </div>
               <div className="mt-6 lg:ml-4 lg:mt-0">
                 <Button
-                  type={ButtonTypes.SUBMIT}
-                  color={ButtonColors.SECONDARY}
+                  type={ButtonType.SUBMIT}
+                  color={ButtonColor.DARK}
                   block
-                  rounded={false}
-                  Icon={MagnifyingGlassIcon}
+                  LeadingIcon={MagnifyingGlassIcon}
                 >
                   {t("search")}
                 </Button>
@@ -228,67 +234,74 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
           <p className="text-base font-medium text-gray-900">
             {t("car information")} :
           </p>
-          <Combobox
-            label={t("make")}
-            items={makesList}
-            selected={make}
-            setSelected={setMake}
-            customValue
-            Icon={CogIcon}
-          />
+          <InputGroup name="make" label={t("make")}>
+            <ComboBox
+              id="make"
+              items={makesList}
+              selected={make}
+              setSelected={setMake}
+              allowCustomValue
+              Icon={CogIcon}
+            />
+          </InputGroup>
           {make.cars ? (
             make.cars.length > 0 && (
-              <Combobox
-                label={t("model")}
-                items={make.cars}
-                selected={model}
-                setSelected={setModel}
-                imageSize={Sizes.XL}
-                customValue
-                Icon={CarIcon}
-              />
+              <InputGroup name="model" label={t("model")}>
+                <ComboBox
+                  id="model"
+                  items={make.cars}
+                  selected={model}
+                  setSelected={setModel}
+                  imageSize={Size.XL}
+                  allowCustomValue
+                  Icon={CarIcon}
+                />
+              </InputGroup>
             )
           ) : (
-            <Input
+            <InputGroup
               name="model"
               label={t("model")}
               value={model}
               handleChange={(e) => setModel(e.target.value)}
             />
           )}
-
           <hr />
-
           <p className="text-base font-medium text-gray-900">
             {t("customer information")} :
           </p>
-
-          <Input
+          <InputGroup
             name="customerName"
             label={t("full name")}
             value={customerName}
             handleChange={(e) => setCustomerName(e.target.value)}
-            rounded={false}
+            LeadingIcon={UserIcon}
           />
-          <Input
+          <InputGroup
             type="tel"
-            name="custonerPhone"
+            name="customerPhone"
             label={t("phone")}
-            value={custonerPhone}
+            value={customerPhone}
             handleChange={(e) => setCustomerPhone(e.target.value)}
-            rounded={false}
           />
-          <Input
+          <PhoneInput
+            type="tel"
+            name="customerPhone"
+            label={t("phone")}
+            value={customerPhone}
+            rounded
+            handleChange={(e) => setCustomerPhone(e.target.value)}
+            onSelect={(country) => setSelectedCountry(country)}
+          />
+          <InputGroup
             type="email"
             name="customerEmail"
             label={t("email")}
             value={customerEmail}
             handleChange={(e) => setCustomerEmail(e.target.value)}
-            rounded={false}
+            LeadingIcon={EnvelopeIcon}
           />
-
           <hr />
-
           <div className="space-y-3">
             <div className="relative">
               <div
@@ -307,26 +320,23 @@ const Booking = ({ whatsapp, email }: BookingProps) => {
               <Button
                 text="Whatsapp"
                 handleClick={() => handleSend("whatsapp")}
-                color={ButtonColors.SUCCESS}
+                color={ButtonColor.SUCCESS}
                 block
-                Icon={whatsapp.icon}
-                rounded={false}
+                LeadingIcon={whatsapp.icon}
               />
               <Button
                 text="Email"
                 handleClick={() => handleSend("email")}
-                color={ButtonColors.DARK}
+                color={ButtonColor.DARK}
                 block
-                Icon={email.icon}
-                rounded={false}
+                LeadingIcon={email.icon}
               />
             </div>
             <Button
               text={t("cancel")}
               handleClick={() => handleCancel()}
-              color={ButtonColors.DEFAULT}
+              color={ButtonColor.DEFAULT}
               block
-              rounded={false}
             />
           </div>
         </div>

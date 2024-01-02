@@ -6,7 +6,7 @@ import { BiGasPump as GasPumpIcon } from "react-icons/bi";
 import { MdOutlineAirlineSeatReclineExtra as SeatIcon } from "react-icons/md";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { ButtonColors, Car, Sizes } from "@/common.types";
+import { ButtonColor, Car, Size } from "@/common.types";
 import { Button } from "@/components/elements";
 
 interface CarProps extends Car {
@@ -97,7 +97,7 @@ const CarCard = ({ car }: CarCardProps) => {
 
               <Button
                 text={t("book now")}
-                color={ButtonColors.DARK}
+                color={ButtonColor.DARK}
                 pill
                 // handleClick={}
               />
